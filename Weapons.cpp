@@ -182,15 +182,15 @@ public:
 class specialWeapons
 {
 private:
-    int damageReduction;
+    int damageDecrease;
     int price;
     string name;
 
 public:
-    specialWeapons(string name, int damageReduction, int price)
+    specialWeapons(string name, int damageDecrease, int price)
     {
         this->name = name;
-        this->damageReduction = damageReduction;
+        this->damageDecrease = damageDecrease;
         this->price = price;
     }
     string getName()
@@ -199,7 +199,7 @@ public:
     }
     int getDamageDeduction()
     {
-        return this->damageReduction;
+        return this->damageDecrease;
     }
     int getPrice()
     {
@@ -210,12 +210,12 @@ public:
 class bulletproofVest : public specialWeapons
 {
 private:
-    int damageReduction;
+    int damageDecrease;
     int price;
     string name;
 
 public:
-    bulletproofVest(string name, int damageReduction, int price) : specialWeapons(name, damageReduction, price)
+    bulletproofVest(string name, int damageDecrease, int price) : specialWeapons(name, damageDecrease, price)
     {
         
     }
@@ -224,12 +224,12 @@ public:
 class shield : public specialWeapons
 {
 private:
-    int damageReduction;
+    int damageDecrease;
     int price;
     string name;
 
 public:
-    shield(string name, int damageReduction, int price) : specialWeapons(name, damageReduction, price)
+    shield(string name, int damageDecrease, int price) : specialWeapons(name, damageDecrease, price)
     {
         
     }
