@@ -7,7 +7,6 @@ class weapons
 private:
     int damage;
     int price;
-    
     string name;
 
 public:
@@ -29,6 +28,7 @@ public:
     {
         return this->price;
     }
+    virtual void printAttribute() = 0;
 };
 
 class firearm : public weapons
@@ -47,6 +47,12 @@ public:
     string getWeakness()
     {
         return this->weakness;
+    }
+    void printAttribute() override
+    {
+        cout << "Price: " << this->getPrice() << endl;
+        cout << "Damage: " << this->getDamage() << endl;
+        cout << "Weakness: " << this->getWeakness() << endl;
     }
 };
 
@@ -97,6 +103,12 @@ public:
     {
         return this->weakness;
     }
+    void printAttribute() override
+    {
+        cout << "Price: " << this->getPrice() << endl;
+        cout << "Damage: " << this->getDamage() << endl;
+        cout << "Weakness: " << this->getWeakness() << endl;
+    }
 };
 
 class knife : public coldWeapons
@@ -146,6 +158,12 @@ public:
     {
         return this->weakness;
     }
+    void printAttribute() override
+    {
+        cout << "Price: " << this->getPrice() << endl;
+        cout << "Damage: " << this->getDamage() << endl;
+        cout << "Weakness: " << this->getWeakness() << endl;
+    }
 };
 
 class gernade : public throwableWeapons
@@ -185,19 +203,21 @@ private:
     int damageDecrease;
     int price;
     string name;
+    string weakness;
 
 public:
-    specialWeapons(string name, int damageDecrease, int price)
+    specialWeapons(string name, int damageDecrease, int price, string weakness)
     {
         this->name = name;
         this->damageDecrease = damageDecrease;
         this->price = price;
+        this->weakness = weakness;
     }
     string getName()
     {
         return this->name;
     }
-    int getDamageDeduction()
+    int getDamageDecrease()
     {
         return this->damageDecrease;
     }
@@ -205,6 +225,11 @@ public:
     {
         return this->price;
     }
+    string getWeakness()
+    {
+        return this->weakness;
+    }
+    virtual void printAttribute() = 0;
 };
 
 class bulletproofVest : public specialWeapons
@@ -213,11 +238,18 @@ private:
     int damageDecrease;
     int price;
     string name;
+    string weakness;
 
 public:
-    bulletproofVest(string name, int damageDecrease, int price) : specialWeapons(name, damageDecrease, price)
+    bulletproofVest(string name, int damageDecrease, int price, string weakness) : specialWeapons(name, damageDecrease, price, weakness)
     {
         
+    }
+    void printAttribute() override
+    {
+        cout << "Price: " << this->getPrice() << endl;
+        cout << "Decreased Damage: " << this->getDamageDecrease() << endl;
+        cout << "Weakness: " << this->getWeakness() << endl;
     }
 };
 
@@ -227,10 +259,17 @@ private:
     int damageDecrease;
     int price;
     string name;
+    string weakness;
 
 public:
-    shield(string name, int damageDecrease, int price) : specialWeapons(name, damageDecrease, price)
+    shield(string name, int damageDecrease, int price, string weakness) : specialWeapons(name, damageDecrease, price, weakness)
     {
         
+    }
+    void printAttribute() override
+    {
+        cout << "Price: " << this->getPrice() << endl;
+        cout << "Decreased Damage: " << this->getDamageDecrease() << endl;
+        cout << "Weakness: " << this->getWeakness() << endl;
     }
 };
