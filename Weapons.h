@@ -1,4 +1,6 @@
 #include <iostream>
+#pragma once
+#include "colors.h"
 
 using namespace std;
 
@@ -50,9 +52,9 @@ public:
     }
     void printAttribute() override
     {
-        cout << "Price: " << this->getPrice() << endl;
-        cout << "Damage: " << this->getDamage() << endl;
-        cout << "Weakness: " << this->getWeakness() << endl;
+        cout << color::rize("   -Price: ", "Green") << this->getPrice() << endl;
+        cout << color::rize("   -Damage: ", "Green") << this->getDamage() << endl;
+        cout << color::rize("   -Weakness: ", "Green") << this->getWeakness() << endl;
     }
 };
 
@@ -71,7 +73,7 @@ public:
     }
 };
 
-class Pistol : public firearm
+class pistol : public firearm
 {
 private:
     int damage;
@@ -80,7 +82,7 @@ private:
     string weakness;
 
 public:
-    Pistol(string name, int damage, int price, string weakness) : firearm(name, damage, price, weakness)
+    pistol(string name, int damage, int price, string weakness) : firearm(name, damage, price, weakness)
     {
 
     }
@@ -105,9 +107,9 @@ public:
     }
     void printAttribute() override
     {
-        cout << "Price: " << this->getPrice() << endl;
-        cout << "Damage: " << this->getDamage() << endl;
-        cout << "Weakness: " << this->getWeakness() << endl;
+        cout << color::rize("   -Price: ", "Green") << this->getPrice() << endl;
+        cout << color::rize("   -Damage: ", "Green") << this->getDamage() << endl;
+        cout << color::rize("   -Weakness: ", "Green") << this->getWeakness() << endl;
     }
 };
 
@@ -160,9 +162,9 @@ public:
     }
     void printAttribute() override
     {
-        cout << "Price: " << this->getPrice() << endl;
-        cout << "Damage: " << this->getDamage() << endl;
-        cout << "Weakness: " << this->getWeakness() << endl;
+        cout << color::rize("   -Price: ", "Green") << this->getPrice() << endl;
+        cout << color::rize("   -Damage: ", "Green") << this->getDamage() << endl;
+        cout << color::rize("   -Weakness: ", "Green") << this->getWeakness() << endl;
     }
 };
 
@@ -229,7 +231,12 @@ public:
     {
         return this->weakness;
     }
-    virtual void printAttribute() = 0;
+    void printAttribute()
+    {
+        cout << color::rize("   -Price: ", "Green") << this->getPrice() << endl;
+        cout << color::rize("   -Decreased Damage: ", "Green") << this->getDamageDecrease() << endl;
+        cout << color::rize("   -Weakness: ", "Green") << this->getWeakness() << endl;
+    }
 };
 
 class bulletproofVest : public specialWeapons
@@ -245,12 +252,6 @@ public:
     {
         
     }
-    void printAttribute() override
-    {
-        cout << "Price: " << this->getPrice() << endl;
-        cout << "Decreased Damage: " << this->getDamageDecrease() << endl;
-        cout << "Weakness: " << this->getWeakness() << endl;
-    }
 };
 
 class shield : public specialWeapons
@@ -265,11 +266,5 @@ public:
     shield(string name, int damageDecrease, int price, string weakness) : specialWeapons(name, damageDecrease, price, weakness)
     {
         
-    }
-    void printAttribute() override
-    {
-        cout << "Price: " << this->getPrice() << endl;
-        cout << "Decreased Damage: " << this->getDamageDecrease() << endl;
-        cout << "Weakness: " << this->getWeakness() << endl;
     }
 };
