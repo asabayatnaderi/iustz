@@ -27,7 +27,10 @@ public:
 
 class Cookie : public Consumable{
 public:
-    Cookie( string name , int price ,string feature , bool isConsumed = false);
+    Cookie( string name , int price , bool isConsumed) : Consumable(name, price)
+    {
+        Isconsumed = isConsumed;
+    };
     string feature = "Gives 50 health";
     void consume(PlayerModel player){
         player.hpIncrease(50);    
@@ -37,7 +40,10 @@ public:
 
 class Soda : public Consumable{
 public:
-    Soda( string name , int price ,string feature , bool isConsumed = false);
+    Soda( string name , int price , bool isConsumed) : Consumable(name, price)
+    {
+        Isconsumed = isConsumed;
+    };
     string feature = "Gives 50 stamina";
     void consume(PlayerModel player){
         player.staminaIncrease(50);    
