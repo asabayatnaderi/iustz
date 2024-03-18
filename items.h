@@ -60,6 +60,7 @@ public:
     string feature = "Gives 25 stamina & 25 health";
     PlayerModel consume(PlayerModel player){
         player.hpIncrease(25);
+        player.staminaIncrease(25);
         cout << "PlayerHP: " << player.HealthPoints << endl;
         return player; 
     }
