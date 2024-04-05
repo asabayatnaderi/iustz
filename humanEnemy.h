@@ -1,7 +1,4 @@
 #pragma once
-#ifndef HUMANENEMY_H
-#define HUMANENEMY_H
-
 #include <iostream>
 #include <string>
 
@@ -18,6 +15,8 @@ enum class states{
 //Factory class for human enemy; In the MVC model, this class is the equivalent of the MODEL class.
 class humanEnemyModel{
 	public:
+		friend class humanEnemyController;
+
 		//Setter Methods
 		void setName(string newName);
 
@@ -36,10 +35,6 @@ class humanEnemyModel{
 		void increaseStamina(int newStamina);
 
 		void decreaseStamina(int newStamina);
-
-		void setCash(int newCash);
-		
-		void updateCash(int newCash);
 
         void setAge(int newAge);
 
@@ -64,10 +59,6 @@ class humanEnemyModel{
 
 		int getStamina();
 
-		int getCash();
-
-        int getAge();
-
         int getIntelligence();
 
         int getLuck();
@@ -75,8 +66,12 @@ class humanEnemyModel{
 		states getState();
 
 	private:
+		humanEnemyModel(string newName, string newGender, string newRace, int newHp, int newStamina, int newIntelligence, int newLuck);
+
 		string name, gender, race;
-		int hp = 50, stamina = 20, cash = 10, age = 0, intelligence = 0, luck = 0;
+
+		int hp = 0, stamina = 0, intelligence = 0, luck = 0;
+
 		states state {states::offOn};
 };
 
@@ -85,9 +80,7 @@ class humanEnemyModel{
 //View class in MVC model.
 class humanEnemyView{
 	public:
-		void displayGeneralData(string name, string gender, string race, int age, int hp, int stamina);
-
-		void displayCash(int cash);
+		void displayGeneralData(string name, string gender, string race, int hp, int stamina);
 
 		void displayIntelligence(int intelligence);
 
@@ -102,6 +95,8 @@ class humanEnemyView{
 class humanEnemyController{
 	public:
 		//Setter mothods
+		humanEnemyController(string name, string gender, string race, int hp, int stamina, int intelligence, int luck);
+
 		void setGeneralData();
 
 		void setHp(int hp);
@@ -116,10 +111,6 @@ class humanEnemyController{
 
 		void decreaseStamina(int stamina);
 
-		void setCash(int cash);
-
-		void updateCash(int cash);
-
 		void setIntelligence();
 
 		void increaseIntelligence();
@@ -131,19 +122,19 @@ class humanEnemyController{
 		void updateState();
 
 		//Getter methods
-		void getGeneralData();
+		int getHp();
 
-		void getCash();
+		int getStamina();
+
+		void getGeneralData();
 
 		void getIntelligence();
 
 		void getLuck();
 
-		void getState();
+		states getState();
 
 	private:
 		humanEnemyModel enemy;
 		humanEnemyView viewEnemy;
 };
-
-#endif

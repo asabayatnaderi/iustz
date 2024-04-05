@@ -1,8 +1,18 @@
 #include "humanEnemy.h"
-
+using namespace std;
 //Factory class for human enemy; In the MVC model, this class is the equivalent of the MODEL class.
 
 //Setter Methods
+humanEnemyModel::humanEnemyModel(string newName, string newGender, string newRace, int newHp, int newStamina, int newIntelligence, int newLuck){
+	name = newName;
+	gender = newGender;
+	race = newRace;
+	hp = newHp;
+	stamina = newStamina;
+	intelligence = newIntelligence;
+	luck = newLuck;
+};
+
 void humanEnemyModel::setName(string newName){
 	name = newName;
 	return;
@@ -48,27 +58,6 @@ void humanEnemyModel::decreaseStamina(int newStamina){
 	return;
 }
 
-void humanEnemyModel::setCash(int newCash){
-	cash = newCash;
-	return;
-}
-
-void humanEnemyModel::updateCash(int newCash){
-	if(cash >= newCash){
-		cash -= newCash;
-		return;
-	}
-	else{
-		cout << "Unsuccessful purchase." << endl;
-		return;
-	}
-}
-
-void humanEnemyModel::setAge(int newAge){
-    age = newAge;
-    return;
-}
-   
 void humanEnemyModel::setIntelligence(int newIntelligence){
 	intelligence = newIntelligence;
 	return;
@@ -90,11 +79,11 @@ void humanEnemyModel::increaseLuck(){
 }
 
 void humanEnemyModel::updateState(){
-	if(hp < 15){
+	if(hp < 15 && state != states::attack){
 		state = states::lowHp;
 		return;
 	}
-	else if(stamina < 5){
+	else if(stamina < 5 && state != states::attack){
 		state = states::lowStamina;
 		return;
 	}
@@ -129,14 +118,6 @@ int humanEnemyModel::getStamina(){
 	return stamina;
 }
 
-int humanEnemyModel::getCash(){
-	return cash;
-}
-
-int humanEnemyModel::getAge(){
-	return age;
-}
-
 int humanEnemyModel::getIntelligence(){
 	return intelligence;
 }
@@ -153,17 +134,12 @@ states humanEnemyModel::getState(){
 
 //View class in MVC model.
 
-void humanEnemyView::displayGeneralData(string name, string gender, string race, int age, int hp, int stamina){
+void humanEnemyView::displayGeneralData(string name, string gender, string race, int hp, int stamina){
 	cout << "NAME: " << name << endl;
 	cout << "GENDER: " << gender << endl;
 	cout << "RACE: " << race << endl;
-	cout << "AGE: " << age << endl;
 	cout << "HP: " << hp << endl;
 	cout << "STAMINA: " << stamina << endl;
-}
-
-void humanEnemyView::displayCash(int cash){
-	cout << "CASH: " << cash << endl;
 }
 
 void humanEnemyView::displayIntelligence(int intelligence){
@@ -185,7 +161,7 @@ void humanEnemyView::displayState(states state){
 		cout << "STATE: <lowHp>" << endl;
 	}
 	else{
-				cout << "STATE: <attack>" << endl;
+		cout << "STATE: <attack>" << endl;
 	}
 }
 
@@ -194,22 +170,23 @@ void humanEnemyView::displayState(states state){
 //Controller class in MVC model.
 
 //Setter mothods
+humanEnemyController::humanEnemyController(string name, string gender, string race, int hp, int stamina, int intelligence, int luck) : 
+enemy(name, gender, race, hp, stamina, intelligence, luck){
+
+};
+
 void humanEnemyController::setGeneralData(){
 	string name, gender, race;
-	int age = 0;
 	cout << "Enter your name: " << endl;
 	cin >> name;
 	cout << "Enter your gender(male or female): " << endl;
 	cin >> gender;
 	cout << "Enter your race: " << endl;
 	cin >> race;
-	cout << "Enter your age: " << endl;
-	cin >> age;
 
 	enemy.setName(name);
 	enemy.setGender(gender);
 	enemy.setRace(race);
-	enemy.setAge(age);
 	return;
 }
 
@@ -240,16 +217,6 @@ void humanEnemyController::increaseStamina(int stamina){
 
 void humanEnemyController::decreaseStamina(int stamina){
 	enemy.decreaseStamina(stamina);
-	return;
-}
-
-void humanEnemyController::setCash(int cash){
-	enemy.setCash(cash);
-	return;
-}
-
-void humanEnemyController::updateCash(int cash){
-	enemy.updateCash(cash);
 	return;
 }
 
@@ -285,20 +252,21 @@ void humanEnemyController::updateState(){
 }
 
 //Getter methods
+int humanEnemyController::getHp(){
+	return enemy.getHp();
+};
+
+int humanEnemyController::getStamina(){
+	return enemy.getStamina();
+};
+
 void humanEnemyController::getGeneralData(){
 	string name = enemy.getName();
 	string gender = enemy.getGender();
 	string race = enemy.getRace();
-	int age = enemy.getAge();
 	int hp = enemy.getHp();
 	int stamina = enemy.getStamina();
-	viewEnemy.displayGeneralData(name, gender, race, age, hp, stamina);
-	return;
-}
-
-void humanEnemyController::getCash(){
-	int cash = enemy.getCash();
-	viewEnemy.displayCash(cash);
+	viewEnemy.displayGeneralData(name, gender, race, hp, stamina);
 	return;
 }
 
@@ -314,8 +282,7 @@ void humanEnemyController::getLuck(){
 	return;
 }
 
-void humanEnemyController::getState(){
+states humanEnemyController::getState(){
 	states state = enemy.getState();
-	viewEnemy.displayState(state);
-	return;
+	return state;
 }
